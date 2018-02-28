@@ -1,0 +1,250 @@
+
+==================== FINAL INTERFACE ====================
+2018-02-27 08:33:29.2448791 UTC
+
+interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:Parser 8022
+  interface hash: 6f842e7db2f3d6757c6bf233f1289d27
+  ABI hash: ba8cf5c0a267e1877583f0e62abb5c20
+  export-list hash: 2fbf10b604d0a0b76ca837fbfc4e9d3d
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: d22a7c21c2893d38d08642ed0a9c099e
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Parser.checkSection
+  Parser.getGridSection
+  Parser.getTripleSection
+  Parser.getTupleSection
+  Parser.parseGrid
+  Parser.parseRow
+  Parser.parseTriple
+  Parser.parseTuple
+  Parser.removeParen
+  Parser.removeSpaces
+  Parser.sections
+module dependencies:
+package dependencies: base-4.10.1.0* ghc-prim-0.5.1.1
+                      integer-gmp-1.0.1.0
+orphans: base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
+family instance modules: base-4.10.1.0:Control.Applicative
+                         base-4.10.1.0:Data.Either base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Type.Equality base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats
+import  -/  base-4.10.1.0:Data.Foldable 4349255461f1285ad885cd2301205c36
+import  -/  base-4.10.1.0:GHC.Base 8f949d675e49677c272f02ab7a85fe18
+import  -/  base-4.10.1.0:GHC.List 1bb0adf79553530dc898796596e53188
+import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
+import  -/  base-4.10.1.0:Text.Read c150617dda21a009ed26981626bd21d7
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 64ad5910d03ab188ab9b4adef7487b1e
+9b3f7a0c996b25e73f18b7feb645677b
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   Parser.$trModule3
+                   Parser.$trModule1) -}
+2caf9ba916952a8aafb1da678c0acef0
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Parser.$trModule2) -}
+e1196f64aeafb03f36d543a4f802371e
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Parser"#) -}
+d0dcd04adb14acba6eee4ce57109f47d
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Parser.$trModule4) -}
+fa9ba8f495e76dc73faf1b7c434622a2
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG"#) -}
+ce8c5755dda6e6b215da0be9da2ba8ea
+  checkSection ::
+    [GHC.Base.String] -> [GHC.Base.String] -> GHC.Base.String
+  {- Arity: 2, Strictness: <S,1*U><S,1*U> -}
+c26b3f364d03fac5d18ae4ac269677f1
+  getGridSection ::
+    [GHC.Base.String] -> GHC.Base.String -> [[GHC.Types.Int]]
+  {- Arity: 2, Strictness: <S,1*U><S,U> -}
+24b431517f71f96248014d1ca457c06a
+  getTripleSection ::
+    [GHC.Base.String]
+    -> GHC.Base.String
+    -> [(GHC.Types.Char, GHC.Types.Char, GHC.Types.Int)]
+  {- Arity: 2, Strictness: <S,1*U><S,U> -}
+32854377232f0a591e83f06111903278
+  getTupleSection ::
+    [GHC.Base.String]
+    -> GHC.Base.String -> [(GHC.Types.Char, GHC.Types.Char)]
+  {- Arity: 2, Strictness: <S,1*U><S,U> -}
+86c6b74d63d9eb54f3be6a24e6eb9a43
+  parseGrid :: [GHC.Base.String] -> [[GHC.Types.Int]]
+  {- Arity: 1, Strictness: <S,1*U> -}
+f24c56ca6634111c104c8972463d7fba
+  parseRow :: GHC.Base.String -> [GHC.Types.Int]
+  {- Arity: 1, Strictness: <S,1*U> -}
+5fab3657f49c7d01d29933b631a0855d
+  parseTriple ::
+    [GHC.Base.String]
+    -> [(GHC.Types.Char, GHC.Types.Char, GHC.Types.Int)]
+  {- Arity: 1, Strictness: <S,1*U> -}
+b7010e9bcaaf7a67df09dd190391f5d4
+  parseTuple ::
+    [GHC.Base.String] -> [(GHC.Types.Char, GHC.Types.Char)]
+  {- Arity: 1, Strictness: <S,1*U> -}
+eb2ecb09e3dc318b106b221301a84abb
+  removeParen :: GHC.Base.String -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (word :: GHC.Base.String) ->
+                 GHC.Base.build
+                   @ GHC.Types.Char
+                   (\ @ b
+                      (c :: GHC.Types.Char -> b -> b)[OneShot]
+                      (n :: b)[OneShot] ->
+                    GHC.Base.foldr
+                      @ GHC.Types.Char
+                      @ b
+                      (GHC.List.filterFB @ GHC.Types.Char @ b c Parser.removeParen1)
+                      n
+                      word)) -}
+b67b22f70146694b65067ff812bda193
+  removeParen1 :: GHC.Types.Char -> GHC.Types.Bool
+  {- Arity: 1, Strictness: <L,U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: GHC.Types.Char) ->
+                 case GHC.List.elem
+                        @ GHC.Types.Char
+                        GHC.Classes.$fEqChar
+                        ds
+                        Parser.removeParen2 of wild {
+                   GHC.Types.False -> GHC.Types.True
+                   GHC.Types.True -> GHC.Types.False }) -}
+17e14dae302ec14f9467173138bed3b2
+  removeParen2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.removeParen3) -}
+de87fc17274321ea126666bfad94128b
+  removeParen3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("(,)"#) -}
+d6f67d4599dbf021d41bf6ee477dfbe1
+  removeSpaces :: GHC.Base.String -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (word :: GHC.Base.String) ->
+                 GHC.Base.build
+                   @ GHC.Types.Char
+                   (\ @ b
+                      (c :: GHC.Types.Char -> b -> b)[OneShot]
+                      (n :: b)[OneShot] ->
+                    GHC.Base.foldr
+                      @ GHC.Types.Char
+                      @ b
+                      (GHC.List.filterFB @ GHC.Types.Char @ b c Parser.removeSpaces1)
+                      n
+                      word)) -}
+e6e28483e9124e10236f2d16fae3a53a
+  removeSpaces1 :: GHC.Types.Char -> GHC.Types.Bool
+  {- Arity: 1, Strictness: <L,U>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: GHC.Types.Char) ->
+                 case GHC.List.elem
+                        @ GHC.Types.Char
+                        GHC.Classes.$fEqChar
+                        ds
+                        Parser.removeSpaces2 of wild {
+                   GHC.Types.False -> GHC.Types.True
+                   GHC.Types.True -> GHC.Types.False }) -}
+4d8f598e3d91a5e32a7cc4b9c59cabf6
+  removeSpaces2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.removeSpaces3) -}
+acbc6e432177642bd08870cab841f833
+  removeSpaces3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: (" "#) -}
+b8e516ce79795cdde81392615840cb67
+  sections :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections16
+                   Parser.sections1) -}
+552d8c70692e810657b6b0e2d734361a
+  sections1 :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections14
+                   Parser.sections2) -}
+413ab541a8bb30b45660d77e4a0b20a9
+  sections10 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections11) -}
+113ad558ac21f7e2c2b069936b5d135d
+  sections11 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("too-near tasks:"#) -}
+0645f57ae19e93748f2f76e9cface67e
+  sections12 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections13) -}
+9ec71be035286265170aee978c145941
+  sections13 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("forbidden machine:"#) -}
+9ffd00460451b28f4e9a6e849a504909
+  sections14 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections15) -}
+bc7b531e314610f76f8b8c33bae220d9
+  sections15 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("forced partial assignment:"#) -}
+cc3fa568ca2b9c6c72aaf34b3d843f15
+  sections16 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections17) -}
+cf87941c9ef46f8865573fe7573c643a
+  sections17 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Name:"#) -}
+fac1f54067ff7047f154e157a44b3c26
+  sections2 :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections12
+                   Parser.sections3) -}
+b577b67e9edc7e109802769ff0d74031
+  sections3 :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections10
+                   Parser.sections4) -}
+d1d90ef8d6c93bed3496468530a05488
+  sections4 :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections8
+                   Parser.sections5) -}
+491d20900d45c97402fa1ba93dedace3
+  sections5 :: [GHC.Base.String]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ GHC.Base.String
+                   Parser.sections6
+                   (GHC.Types.[] @ GHC.Base.String)) -}
+e64bf86414a5711f951dcdd75575a1a5
+  sections6 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections7) -}
+fe5f562c63d3f8d2a527cdc7a16b5e82
+  sections7 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("too-near penalities"#) -}
+647afd77a69ee57bb26c0997e9f42e3f
+  sections8 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Parser.sections9) -}
+e4bf7568d7d1ff128dfb772b71d39598
+  sections9 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("machine penalties:"#) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+
