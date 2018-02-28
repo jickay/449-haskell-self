@@ -37,7 +37,9 @@ makeForced :: [(Char,Char)] -> [(Char,Char)] -> [(Char,Char)] -> [Char] -> [Char
 makeForced [] _ _ matches = matches
 makeForced (x:xs) forbidden tooNear matches
     | checkForbid x forbidden       = "No possible solution"
-    | otherwise                     = makePair x (makeForced xs forbidden tooNear matches) tooNear forbidden
+    | otherwise                     = makeForced xs newForbid tooNear newMatches
+    where newMatches = makePair x matches
+          newForbid = forbidden ++ (checkTooNear tooNear (fst x) (snd x))
 
 -- Check if pair to match is forbidden; returns True if forbidden
 checkForbid :: (Char,Char) -> [(Char,Char)] -> Bool
@@ -46,21 +48,20 @@ checkForbid x forbidden
     | otherwise             = False
 
 -- Make a matched pair
-makePair :: (Char,Char) -> [Char] -> [(Char,Char)] -> [(Char,Char)] -> [(Char,(Char,Char))]
-makePair x matches tooNear forbidden = do
+makePair :: (Char,Char) -> [Char] -> [Char]
+makePair x matches =
     let mach = fst x     -- turn num string into int index, eg. "1" -> 0
         task = snd x
         index = (read [mach]::Int) - 1
         (as,bs) = splitAt index matches
-    forbidden <- forbidden ++ [(checkTooNear tooNear task mach)]
-    newMatches <- as ++ [task] ++ (tail bs)
-    return (newMatches, forbidden)
+    in as ++ [task] ++ (tail bs)
 
 -- Check too-near for new forbidden pairs
-checkTooNear :: [(Char,Char)] -> Char -> Char -> (Char,Char)
+checkTooNear :: [(Char,Char)] -> Char -> Char -> [(Char,Char)]
+checkTooNear [] _ _ = []
 checkTooNear (x:xs) task mach
-    | task == taskL         = (machR,taskL)
-    | task == taskR         = (machL,taskR)
+    | task == taskL         = [(machR,taskR)] ++ (checkTooNear xs task mach)
+    | task == taskR         = [(machL,taskL)] ++ (checkTooNear xs task mach)
     | otherwise             = checkTooNear xs task mach
     where taskL = fst x
           taskR = snd x

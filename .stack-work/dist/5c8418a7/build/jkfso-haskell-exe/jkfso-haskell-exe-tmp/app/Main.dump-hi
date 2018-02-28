@@ -1,17 +1,18 @@
 
 ==================== FINAL INTERFACE ====================
-2018-02-28 03:51:48.8434799 UTC
+2018-02-28 20:50:24.9055252 UTC
 
 interface main:Main 8022
-  interface hash: df928968c85b333bdfdf4b95c7b07fd4
-  ABI hash: 42f056e037d5fae505f46eecc376b148
-  export-list hash: 2cd81c3b0fdf816ba1356fb2e4f91be3
+  interface hash: 8266a725ba61d325b563cd04bcb40f4a
+  ABI hash: 47a9e66e33429aa9cd78d7e83616f99d
+  export-list hash: 47e0d4760aa0e9c2d30cecb2b713d49b
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
-  flag hash: 49bc03923b6b72218773bcd45aaea9d8
+  flag hash: b9c7e8ff195830d0fc56c19d3fd5fa92
   sig of: Nothing
   used TH splices: False
   where
 exports:
+  Main.forcedValid
   Main.main
 module dependencies:
 package dependencies: base-4.10.1.0* ghc-prim-0.5.1.1
@@ -24,11 +25,12 @@ family instance modules: base-4.10.1.0:Control.Applicative
                          base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
                          base-4.10.1.0:GHC.TypeNats
 import  -/  base-4.10.1.0:Data.OldList fdea655c7bec488a3994df222c677ab7
+import  -/  base-4.10.1.0:GHC.Base 8f949d675e49677c272f02ab7a85fe18
 import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:System.Environment 29b8ecc18446119a33172a40409ab016
 import  -/  base-4.10.1.0:System.IO 1fb8f1d116df69c8750950ac088a90e6
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
-import  -/  jkfso-haskell-0.1.0.0:HardConstraints 2c08b34583cf3d729d1c325293aa88f5
+import  -/  jkfso-haskell-0.1.0.0:HardConstraints e86f0562cd4f59435032f24663722785
 import  -/  jkfso-haskell-0.1.0.0:Input 46f4d1b6920570870efd4da2af99945d
 import  -/  jkfso-haskell-0.1.0.0:Parser ba8cf5c0a267e1877583f0e62abb5c20
 9d72b2fddb818bcd8919052935e0f1f3
@@ -49,6 +51,33 @@ e5875966b74dad2d29772660b8a75e33
 d026be77cb9ced20e35a61514e0458aa
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("main"#) -}
+7fde8baba86b27f7a99a5ed2aad84554
+  forcedValid ::
+    [(GHC.Types.Char, GHC.Types.Char)]
+    -> [(GHC.Types.Char, GHC.Types.Char)]
+    -> [(GHC.Types.Char, GHC.Types.Char)]
+    -> [GHC.Types.Char]
+    -> [GHC.Types.Char]
+  {- Arity: 4, Strictness: <S,U><L,U><L,U><L,1*U>,
+     Unfolding: InlineRule (4, True, False)
+                (\ (forcedPairs :: [(GHC.Types.Char, GHC.Types.Char)])
+                   (forbidPairs :: [(GHC.Types.Char, GHC.Types.Char)])
+                   (tooNearPairs :: [(GHC.Types.Char, GHC.Types.Char)])
+                   (matches :: [GHC.Types.Char]) ->
+                 case HardConstraints.forcedDoubles forcedPairs of wild {
+                   GHC.Types.False -> Main.forcedValid1
+                   GHC.Types.True
+                   -> HardConstraints.makeForced
+                        forcedPairs
+                        forbidPairs
+                        tooNearPairs
+                        matches }) -}
+719b543e5d57ebfba64813d368197b3f
+  forcedValid1 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Main.forcedValid2) -}
+f3b9c383eb83b0dca732d670ee675b04
+  forcedValid2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("No solution possible!"#) -}
 16c8b5a7e0fffcc12f6a3958110c69b9
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
