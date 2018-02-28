@@ -24,21 +24,60 @@ getTasks (x:xs) =
     let task = fst x
     in [task] ++ getTasks xs
 
--- Check if forced pair is also forbidden
-forcedForbid :: [(Char,Char)] -> [(Char,Char)] -> Bool
-forcedForbid [] _ = True
-forcedForbid _ [] = True
-forcedForbid (x:xs) ys
-    | x `elem` ys       = False
-    | otherwise         = forcedForbid xs ys
+-- -- Check if forced pair is also forbidden
+-- forcedForbid :: [(Char,Char)] -> [(Char,Char)] -> Bool
+-- forcedForbid [] _ = True
+-- forcedForbid _ [] = True
+-- forcedForbid (x:xs) ys
+--     | x `elem` ys       = False
+--     | otherwise         = forcedForbid xs ys
 
 -- Make forced pairs
-makeForced :: [(Char,Char)] -> [Char]
-makeForced [] = []
-makeForced (x:xs) =
-    let mach = read [fst x]::Int
+makeForced :: [(Char,Char)] -> [(Char,Char)] -> [(Char,Char)] -> [Char] -> [Char]
+makeForced [] _ _ matches = matches
+makeForced (x:xs) forbidden tooNear matches
+    | checkForbid x forbidden       = "No possible solution"
+    | otherwise                     = makePair x (makeForced xs forbidden tooNear matches) tooNear forbidden
+
+-- Check if pair to match is forbidden; returns True if forbidden
+checkForbid :: (Char,Char) -> [(Char,Char)] -> Bool
+checkForbid x forbidden
+    | x `elem` forbidden    = True
+    | otherwise             = False
+
+-- Make a matched pair
+makePair :: (Char,Char) -> [Char] -> [(Char,Char)] -> [(Char,Char)] -> [(Char,(Char,Char))]
+makePair x matches tooNear forbidden = do
+    let mach = fst x     -- turn num string into int index, eg. "1" -> 0
         task = snd x
-        matches = ['X','X','X','X','X','X','X','X']
-        (as,bs) = splitAt mach matches
-        b = tail bs
-    in as ++ [task] ++ b
+        index = (read [mach]::Int) - 1
+        (as,bs) = splitAt index matches
+    forbidden <- forbidden ++ [(checkTooNear tooNear task mach)]
+    newMatches <- as ++ [task] ++ (tail bs)
+    return (newMatches, forbidden)
+
+-- Check too-near for new forbidden pairs
+checkTooNear :: [(Char,Char)] -> Char -> Char -> (Char,Char)
+checkTooNear (x:xs) task mach
+    | task == taskL         = (machR,taskL)
+    | task == taskR         = (machL,taskR)
+    | otherwise             = checkTooNear xs task mach
+    where taskL = fst x
+          taskR = snd x
+          machL = getMachL mach
+          machR = getMachR mach
+
+-- Get neighbour machine for too-near checks
+getMachL :: Char -> Char
+getMachL mach
+    | mach == '1'       = '8'
+    | otherwise         = head newMach
+    where machInt = (read [mach]::Int) - 1
+          newMach = show machInt
+
+getMachR :: Char -> Char
+getMachR mach
+    | mach == '8'       = '1'
+    | otherwise         = head newMach
+    where machInt = (read [mach]::Int) + 1
+          newMach = show machInt

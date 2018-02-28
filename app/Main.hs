@@ -32,8 +32,9 @@ main = do
     print tooNearPen
     
     -- Hard Constraints
+    let matches = ['X','X','X','X','X','X','X','X']
     print (forcedDoubles forcedPairs)
-    print (forcedForbid forcedPairs forbidPairs)
+    print (makeForced forcedPairs forbidPairs tooNearPairs matches)
 
     -- Solution filler
     let solutionOutput = "Solution: A B C D E F G H; Quality: 0"

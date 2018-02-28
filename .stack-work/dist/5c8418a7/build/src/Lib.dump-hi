@@ -1,13 +1,13 @@
 
 ==================== FINAL INTERFACE ====================
-2018-02-26 18:11:06.9230848 UTC
+2018-02-28 03:09:45.1608531 UTC
 
 interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:Lib 8022
   interface hash: f3331701422d901939c2a91fc9964dec
   ABI hash: 435421ed21b440cabeefa963d46e5e7f
   export-list hash: 99f61719d288cbdf7d53707763d5819e
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
-  flag hash: d22a7c21c2893d38d08642ed0a9c099e
+  flag hash: c98e1eb85fe7ed81c2ec56ee6ec1ed45
   sig of: Nothing
   used TH splices: False
   where

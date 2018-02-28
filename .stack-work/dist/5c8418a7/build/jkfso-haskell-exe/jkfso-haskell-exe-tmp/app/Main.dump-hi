@@ -1,13 +1,13 @@
 
 ==================== FINAL INTERFACE ====================
-2018-02-27 18:56:50.419863 UTC
+2018-02-28 03:51:48.8434799 UTC
 
 interface main:Main 8022
-  interface hash: db4b266637c61a594924e55b31260a68
+  interface hash: df928968c85b333bdfdf4b95c7b07fd4
   ABI hash: 42f056e037d5fae505f46eecc376b148
   export-list hash: 2cd81c3b0fdf816ba1356fb2e4f91be3
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
-  flag hash: b9c7e8ff195830d0fc56c19d3fd5fa92
+  flag hash: 49bc03923b6b72218773bcd45aaea9d8
   sig of: Nothing
   used TH splices: False
   where
@@ -28,7 +28,7 @@ import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:System.Environment 29b8ecc18446119a33172a40409ab016
 import  -/  base-4.10.1.0:System.IO 1fb8f1d116df69c8750950ac088a90e6
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
-import  -/  jkfso-haskell-0.1.0.0:HardConstraints 57755b5d490426ca222f7f24ecf6ea4f
+import  -/  jkfso-haskell-0.1.0.0:HardConstraints 2c08b34583cf3d729d1c325293aa88f5
 import  -/  jkfso-haskell-0.1.0.0:Input 46f4d1b6920570870efd4da2af99945d
 import  -/  jkfso-haskell-0.1.0.0:Parser ba8cf5c0a267e1877583f0e62abb5c20
 9d72b2fddb818bcd8919052935e0f1f3
