@@ -3,8 +3,10 @@ module Main where
 import Input
 import Parser
 import HardConstraints
+import SoftConstraints
 
 import System.Environment
+import Data.List
 
 main :: IO()
 main = do
@@ -36,8 +38,12 @@ main = do
     let forcedMatches = forcedValid forcedPairs forbidPairs tooNearPairs matches
     print forcedMatches
 
+    -- Soft Constraints
+    let finalMatches = iterateMatches forcedMatches grid tooNearPen
+        quality = getQual forcedMatches grid tooNearPen
+
     -- Solution filler
-    let solution = "Solution: A B C D E F G H; Quality: 0"
+    let solution = makeSolution finalMatches quality
 
     -- Print output file
     -- (Solution will be final string to print out)
@@ -51,6 +57,6 @@ forcedValid forcedPairs forbidPairs tooNearPairs matches
 
 -- Make solution string for output
 makeSolution :: String -> Int -> String
-makeSolution matches quality = "Solution: " ++ matchWithSpaces ++ "Quality: " ++ qualityString
-    where matchWithSpaces = matches
+makeSolution matches quality = "Solution: " ++ matchWithSpaces ++ "; Quality: " ++ qualityString
+    where matchWithSpaces = intersperse ' ' matches
           qualityString = show quality
