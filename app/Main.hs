@@ -40,10 +40,11 @@ main = do
 
     -- Soft Constraints
     let finalMatches = iterateMatches forcedMatches grid tooNearPen
-        quality = getQual forcedMatches grid tooNearPen
+        quality = getQual finalMatches grid tooNearPen
 
     -- Solution filler
     let solution = makeSolution finalMatches quality
+    print solution
 
     -- Print output file
     -- (Solution will be final string to print out)

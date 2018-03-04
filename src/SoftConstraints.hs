@@ -10,8 +10,9 @@ tasks = "ABCDEFGH"
 
 -- Get quality based on available machines
 getQual :: [Char] -> [[Int]] -> [(Char,Char,Int)] -> Int
+getQual [] _ _ = 0
 getQual (x:xs) grid tooNearPen
-    | x `elem` tasks    = (xPen + nearPen + getQual xs grid tooNearPen)
+    | x `elem` tasks    = xPen + nearPen + getQual xs grid tooNearPen
     | otherwise         = 0 + nearPen + (getQual xs grid tooNearPen)
     where mach = getIndex (elemIndex x xs)
           task = getIndex (elemIndex x tasks)
@@ -32,45 +33,56 @@ iterateMatches matches grid tooNearPen
     | freeTasks == []       = matches
     | otherwise             = iterateMatches bestIteration grid tooNearPen
     where freeTasks = getFreeTasks tasks matches
-          expandedMatches = expandMatches matches freeTasks
+          expandedMatches = expandMatches 0 matches freeTasks
           rounds = getRounds expandedMatches grid
           index = compareMatches rounds grid tooNearPen
-          bestIteration = expandedMatches !! index
+          bestIteration = rounds !! index
 
-expandMatches :: [Char] -> [Char] -> [[Char]]
-expandMatches [] _ = []
-expandMatches matches freeTasks
-    | x == 'x'          = [matches'] ++ expandMatches matches (tail freeTasks)
-    | otherwise         = expandMatches matches freeTasks
-    where (x:_) = matches
-          index = getIndex (elemIndex x matches)
-          (as,bs) = splitAt index matches
+expandMatches :: Int -> [Char] -> [Char] -> [[Char]]
+expandMatches _ [] _ = []
+expandMatches _ _ [] = []
+expandMatches index matches freeTasks
+    | matches !! index == 'x'       = [matches'] ++ expandMatches 0 matches (tail freeTasks)
+    | otherwise                     = expandMatches (index+1) matches freeTasks
+    where (as,bs) = splitAt index matches
           matches' = as ++ [(head freeTasks)] ++ (tail bs)
 
 getRounds :: [[Char]] -> [[Int]] -> [[Char]]
 getRounds [] _ = []
 getRounds expandedMatches grid
-    | x /= []           = [fillRound x grid] ++ getRounds xs grid
+    | x /= []           = [fillRound x grid freeTasks] ++ getRounds xs grid
     | otherwise         = getRounds xs grid
     where (x:xs) = expandedMatches
+          freeTasks = getFreeTasks tasks x
 
-fillRound :: [Char] -> [[Int]] -> [Char]
-fillRound [] _ = []
-fillRound matches grid
-    | x == 'x'          = [fillX i row freeTasks] ++ fillRound xs grid
-    | otherwise         = [x] ++ fillRound xs grid
+fillRound :: [Char] -> [[Int]] -> [Char] -> [Char]
+fillRound [] _ _ = []
+fillRound matches grid freeTasks
+    | x == 'x'          = [fill] ++ fillRound xs grid freeTasks'
+    | otherwise         = [x] ++ fillRound xs grid freeTasks
     where (x:xs) = matches
-          freeTasks = getFreeTasks tasks matches
           mach = getIndex (elemIndex x xs)
           row = grid !! mach
-          i = minIndex row
+          fill = fillX 0 row freeTasks
+          freeTasks' = delete fill freeTasks
 
 fillX :: Int -> [Int] -> [Char] -> Char
 fillX x [] _ = (tasks !! x)
 fillX taskIndex row freeTasks
-    | task `elem` freeTasks             = task
-    | otherwise                         = fillX (taskIndex+1) row freeTasks
+    | isMin && isFree          = task
+    | otherwise                = fillX (taskIndex+1) row freeTasks
     where task = tasks !! taskIndex
+          minVal = minimum row
+          isMin = (row !! taskIndex) == minVal
+          isFree = task `elem` freeTasks
+
+-- validFill :: Char -> Int -> [Int] -> Bool
+-- validFill task taskIndex row
+--     | isMin && isFree       = True
+--     | otherwise             = False
+--     where minVal = minimum row
+--           isMin = (row !! taskIndex) == minVal
+--           isFree = task `elem` freeTasks
 
 minIndex :: [Int] -> Int
 minIndex xs = head $ filter ((== minimum xs) . (xs !!)) [0..]

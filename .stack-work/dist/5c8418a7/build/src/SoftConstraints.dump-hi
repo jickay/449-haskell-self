@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-03 23:01:29.3499667 UTC
+2018-03-04 00:58:37.4975455 UTC
 
 interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:SoftConstraints 8022
-  interface hash: b90733df542d954858990ea91716a054
-  ABI hash: 8a60dc683ecdc9ae328e20a6e44a2e3d
-  export-list hash: 946c0e3fcb1211aaa6b13aa5e2887db4
+  interface hash: e4e5cace0c7b8788e342fba8a0fefe35
+  ABI hash: cde4088db7616bf2acf005307498fe18
+  export-list hash: 2c027a5a844251e3eb937a1367a5b3c5
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: c98e1eb85fe7ed81c2ec56ee6ec1ed45
   sig of: Nothing
@@ -23,6 +23,7 @@ exports:
   SoftConstraints.getRounds
   SoftConstraints.iterateMatches
   SoftConstraints.machines
+  SoftConstraints.minIndex
   SoftConstraints.tasks
 module dependencies:
 package dependencies: base-4.10.1.0* ghc-prim-0.5.1.1
@@ -64,7 +65,7 @@ e23db0088b2d19bf268bb8aa69888a71
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG"#) -}
-6c9db403dafbb3eb0391e832972b1949
+62393981892c6eec83aa6f3c7118d4ec
   $wcompareMatches ::
     [[GHC.Types.Char]] -> [[GHC.Types.Int]] -> GHC.Types.Int
   {- Arity: 2, Strictness: <S,1*U><L,U>, Inline: [0],
@@ -76,23 +77,66 @@ e23db0088b2d19bf268bb8aa69888a71
                    -> case Data.OldList.findIndex
                              @ [GHC.Types.Char]
                              (GHC.Base.eqString
-                                (case ipv1 of wild1 {
-                                   [] -> ipv
-                                   : y ys
-                                   -> case SoftConstraints.$wgetQual y w1
-                                      ret_ty GHC.Base.String
-                                      of {} }))
+                                (letrec {
+                                   go :: [[GHC.Types.Char]] -> [GHC.Types.Char] -> GHC.Base.String
+                                     <join 2> {- Arity: 2, Strictness: <S,1*U><S,U> -}
+                                   = \ (ds :: [[GHC.Types.Char]]) (eta :: [GHC.Types.Char]) ->
+                                     case ds of wild1 {
+                                       [] -> eta
+                                       : y ys
+                                       -> case SoftConstraints.$wgetQual y w1 of ww { DEFAULT ->
+                                          case SoftConstraints.$wgetQual eta w1 of ww1 { DEFAULT ->
+                                          case GHC.Prim.tagToEnum#
+                                                 @ GHC.Types.Bool
+                                                 (GHC.Prim.># ww ww1) of wild2 {
+                                            GHC.Types.False -> go ys y
+                                            GHC.Types.True -> go ys eta } } } }
+                                 } in
+                                 go ipv1 ipv))
                              wild of wild1 {
                         GHC.Base.Nothing -> SoftConstraints.compareMatches1
                         GHC.Base.Just x -> x } }) -}
-c616b8a227ee91cbce49fa9fc47ca01e
-  $wgetQual :: [GHC.Types.Char] -> [[GHC.Types.Int]] -> GHC.Types.Int
-  {- Arity: 2, Strictness: <B,1*U><B,U>x, Inline: [0] -}
+df425815ee2c874328e8cbdc61a8452d
+  $wfillX ::
+    GHC.Prim.Int#
+    -> [GHC.Types.Int] -> [GHC.Types.Char] -> GHC.Types.Char
+  {- Arity: 3, Strictness: <S,U><S,1*U><L,U>, Inline: [0] -}
+7c4fe8a0c582db4e93553c2250489fd7
+  $wgetQual :: [GHC.Types.Char] -> [[GHC.Types.Int]] -> GHC.Prim.Int#
+  {- Arity: 2, Strictness: <S,1*U><L,U>, Inline: [0] -}
 455e13b5a1c88f416cdd67e41a6d8460
   $witerateMatches ::
     [GHC.Types.Char] -> [[GHC.Types.Int]] -> [GHC.Types.Char]
   {- Arity: 2, Strictness: <S,1*U><L,U>, Inline: [0] -}
-d51b280c2fcbde1ebc43950a2297fce9
+e14ddaa844d44f55b04a66a2050562d2
+  $wminIndex :: [GHC.Types.Int] -> GHC.Prim.Int#
+  {- Arity: 1, Strictness: <S,1*U>, Inline: [0],
+     Unfolding: (\ (w :: [GHC.Types.Int]) ->
+                 case w of wild {
+                   [] -> case GHC.List.minimum2 ret_ty GHC.Prim.Int# of {}
+                   : ipv ipv1
+                   -> case ipv of ww { GHC.Types.I# ww1 ->
+                      case GHC.List.$wgo1 ipv1 ww1 of ww2 { DEFAULT ->
+                      letrec {
+                        go :: GHC.Prim.Int# -> GHC.Prim.Int#
+                          <join 1> {- Arity: 1, Strictness: <S,U> -}
+                        = \ (x :: GHC.Prim.Int#) ->
+                          case GHC.List.$w!!
+                                 @ GHC.Types.Int
+                                 wild
+                                 x of wild1 { GHC.Types.I# x1 ->
+                          case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.==# x1 ww2) of wild2 {
+                            GHC.Types.False
+                            -> case x of wild3 {
+                                 DEFAULT -> go (GHC.Prim.+# wild3 1#)
+                                 9223372036854775807#
+                                 -> case GHC.List.badHead ret_ty GHC.Prim.Int# of {} }
+                            GHC.Types.True -> x } }
+                      } in
+                      go 0# } } }) -}
+c9c292330c8d034d7e9366073a5d0b17
   compareMatches ::
     [[GHC.Types.Char]]
     -> [[GHC.Types.Int]]
@@ -107,19 +151,27 @@ d51b280c2fcbde1ebc43950a2297fce9
 81ab919ee13d4dc950f2f4e7ce45ddee
   compareMatches1 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
-3f522b1b569b6130cd37b651d22ce433
+7885be9fb02864d4d3cec33996b7cb39
   expandMatches ::
-    [GHC.Types.Char] -> [GHC.Types.Char] -> [[GHC.Types.Char]]
-  {- Arity: 2, Strictness: <S,1*U><L,U> -}
-a956dd503d9f0a12fb20276adfeff987
+    GHC.Types.Int
+    -> [GHC.Types.Char] -> [GHC.Types.Char] -> [[GHC.Types.Char]]
+  {- Arity: 3, Strictness: <L,1*U(U)><S,1*U><L,1*U> -}
+d615ceb3a93954d84b9fd712177e926f
   fillRound ::
-    [GHC.Types.Char] -> [[GHC.Types.Int]] -> [GHC.Types.Char]
-  {- Arity: 2, Strictness: <S,1*U><L,U> -}
-b354aa25e940d2169817a13cbaa7effd
+    [GHC.Types.Char]
+    -> [[GHC.Types.Int]] -> [GHC.Types.Char] -> [GHC.Types.Char]
+  {- Arity: 3, Strictness: <S,1*U><L,U><L,U> -}
+441d82e06cee8bff410445dbd4643868
   fillX ::
     GHC.Types.Int
     -> [GHC.Types.Int] -> [GHC.Types.Char] -> GHC.Types.Char
-  {- Arity: 3, Strictness: <L,U(U)><S,1*U><L,U> -}
+  {- Arity: 3, Strictness: <S(S),1*U(U)><S,1*U><L,U>, Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: GHC.Types.Int)
+                   (w1 :: [GHC.Types.Int])
+                   (w2 :: [GHC.Types.Char]) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 SoftConstraints.$wfillX ww1 w1 w2 }) -}
 9d987fa3df4fa28ba225dbf22a6681a4
   getFreeTasks ::
     [GHC.Types.Char] -> [GHC.Types.Char] -> [GHC.Types.Char]
@@ -144,18 +196,19 @@ fc86e10e2db3e8b13147152e1bff9647
                    (b :: GHC.Types.Char)
                    (c :: [(GHC.Types.Char, GHC.Types.Char, GHC.Types.Int)]) ->
                  SoftConstraints.compareMatches1) -}
-6218b5b469477f90bd04343f61e5de74
+4b41dcdf632c034efe4f82fe9d697d99
   getQual ::
     [GHC.Types.Char]
     -> [[GHC.Types.Int]]
     -> [(GHC.Types.Char, GHC.Types.Char, GHC.Types.Int)]
     -> GHC.Types.Int
-  {- Arity: 3, Strictness: <B,1*U><B,U><B,A>x, Inline: [0],
-     Unfolding: InlineRule (3, True, True)
+  {- Arity: 3, Strictness: <S,1*U><L,U><L,A>m, Inline: [0],
+     Unfolding: InlineRule (3, True, False)
                 (\ (w :: [GHC.Types.Char])
                    (w1 :: [[GHC.Types.Int]])
                    (w2 :: [(GHC.Types.Char, GHC.Types.Char, GHC.Types.Int)]) ->
-                 SoftConstraints.$wgetQual w w1) -}
+                 case SoftConstraints.$wgetQual w w1 of ww { DEFAULT ->
+                 GHC.Types.I# ww }) -}
 a2240e0276f30158616ac2e003004d84
   getRounds ::
     [[GHC.Types.Char]] -> [[GHC.Types.Int]] -> [[GHC.Types.Char]]
@@ -179,6 +232,13 @@ c8f2249cf341b5e3e3a9f4b08d7617e6
 11960aa9ea15f14bff90541e54f5fc51
   machines1 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("12345678"#) -}
+1fc537f12e06177a565d495cd529f3f3
+  minIndex :: [GHC.Types.Int] -> GHC.Types.Int
+  {- Arity: 1, Strictness: <S,1*U>m, Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: [GHC.Types.Int]) ->
+                 case SoftConstraints.$wminIndex w of ww { DEFAULT ->
+                 GHC.Types.I# ww }) -}
 261b68d8e1f6b32bb78425c420aa8135
   tasks :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString#
