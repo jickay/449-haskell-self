@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-04 00:58:39.6339576 UTC
+2018-03-05 07:52:59.7952583 UTC
 
 interface main:Main 8022
-  interface hash: a4ad13d613007694756f803a3151150a
+  interface hash: 47987bd626ec9313fbec87567e3ea401
   ABI hash: d434db35e3496a96c0c2596b872a103f
   export-list hash: a078207187d0f482cfabdf7af3e7bb7a
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
@@ -36,7 +36,7 @@ import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
 import  -/  jkfso-haskell-0.1.0.0:HardConstraints e86f0562cd4f59435032f24663722785
 import  -/  jkfso-haskell-0.1.0.0:Input 46f4d1b6920570870efd4da2af99945d
 import  -/  jkfso-haskell-0.1.0.0:Parser ba8cf5c0a267e1877583f0e62abb5c20
-import  -/  jkfso-haskell-0.1.0.0:SoftConstraints cde4088db7616bf2acf005307498fe18
+import  -/  jkfso-haskell-0.1.0.0:SoftConstraints 9d789461f810d0787eeecb41d74af694
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
   {- HasNoCafRefs, Strictness: m,

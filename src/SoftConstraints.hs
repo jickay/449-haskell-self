@@ -11,22 +11,57 @@ tasks = "ABCDEFGH"
 -- Get quality based on available machines
 getQual :: [Char] -> [[Int]] -> [(Char,Char,Int)] -> Int
 getQual [] _ _ = 0
-getQual (x:xs) grid tooNearPen
+getQual matches grid tooNearPen
     | x `elem` tasks    = xPen + nearPen + getQual xs grid tooNearPen
     | otherwise         = 0 + nearPen + (getQual xs grid tooNearPen)
-    where mach = getIndex (elemIndex x xs)
-          task = getIndex (elemIndex x tasks)
-          xPen = (grid !! mach) !! task
-          nearPen = getNearPen (head (show mach)) x tooNearPen
+    where (x:xs) = matches
+          machInt = getIndex (elemIndex x matches)
+          taskInt = getIndex (elemIndex x tasks)
+          xPen = (grid !! machInt) !! taskInt
+          nearPen = getNearPen machInt x tooNearPen matches
 
-getNearPen :: Char -> Char -> [(Char,Char,Int)] -> Int
-getNearPen a b c = 0
+getNearPen :: Int -> Char -> [(Char,Char,Int)] -> [Char] -> Int
+getNearPen _ _ _ [] = 0
+getNearPen _ _ [] _ = 0
+getNearPen mach task tooNearPen matches
+    | task == taskL         = checkNeighbor matches machR taskR pen + getNearPen mach task xs matches
+    | task == taskR         = checkNeighbor matches machL taskL pen + getNearPen mach task xs matches
+    | otherwise             = getNearPen mach task xs matches
+    where (x:xs) = tooNearPen
+          taskL = triplefst x
+          taskR = triplesnd x
+          pen = tripletrd x
+          machL = getMachL mach
+          machR = getMachR mach
 
-getIndex :: Maybe Int -> Int
-getIndex mx = case mx of
-    Just x -> x
-    Nothing -> 0
+checkNeighbor :: [Char] -> Int -> Char -> Int -> Int
+checkNeighbor [] _ _ _ = 0
+checkNeighbor matches mach task pen
+    | (matches !! mach) == task         = pen
+    | otherwise                         = 0
 
+triplefst :: (a,b,c) -> a
+triplefst (a,_,_) = a
+
+triplesnd :: (a,b,c) -> b
+triplesnd (_,b,_) = b
+
+tripletrd :: (a,b,c) -> c
+tripletrd (_,_,c) = c
+
+-- Get neighbour machine for too-near checks
+getMachL :: Int -> Int
+getMachL mach
+    | mach <= 0         = 7
+    | otherwise         = mach - 1
+
+getMachR :: Int -> Int
+getMachR mach
+    | mach >= 7         = 0
+    | otherwise         = mach + 1
+
+
+-- Iterate through different possible matches and return best option
 iterateMatches :: [Char] -> [[Int]] -> [(Char,Char,Int)] ->[Char]
 iterateMatches [] _ _ = []
 iterateMatches matches grid tooNearPen
@@ -38,6 +73,8 @@ iterateMatches matches grid tooNearPen
           index = compareMatches rounds grid tooNearPen
           bestIteration = rounds !! index
 
+-- Fill first unmatches row with all possible free tasks
+-- Creates a set of potential matches to compare
 expandMatches :: Int -> [Char] -> [Char] -> [[Char]]
 expandMatches _ [] _ = []
 expandMatches _ _ [] = []
@@ -47,6 +84,7 @@ expandMatches index matches freeTasks
     where (as,bs) = splitAt index matches
           matches' = as ++ [(head freeTasks)] ++ (tail bs)
 
+-- Methods to fill out expanded matches
 getRounds :: [[Char]] -> [[Int]] -> [[Char]]
 getRounds [] _ = []
 getRounds expandedMatches grid
@@ -76,25 +114,7 @@ fillX taskIndex row freeTasks
           isMin = (row !! taskIndex) == minVal
           isFree = task `elem` freeTasks
 
--- validFill :: Char -> Int -> [Int] -> Bool
--- validFill task taskIndex row
---     | isMin && isFree       = True
---     | otherwise             = False
---     where minVal = minimum row
---           isMin = (row !! taskIndex) == minVal
---           isFree = task `elem` freeTasks
-
-minIndex :: [Int] -> Int
-minIndex xs = head $ filter ((== minimum xs) . (xs !!)) [0..]
-          
-
-getFreeTasks :: [Char] -> [Char] -> [Char]
-getFreeTasks [] _ = []
-getFreeTasks _ [] = []
-getFreeTasks (x:xs) matches
-    | x `notElem` matches       = [x] ++ getFreeTasks xs matches
-    | otherwise                 = getFreeTasks xs matches
-
+-- Compare a list of matches to return the one with lowest penalties
 compareMatches :: [[Char]]-> [[Int]] -> [(Char,Char,Int)] -> Int
 compareMatches [] _ _ = 0
 compareMatches listOfMatches grid tooNearPen =
@@ -102,4 +122,16 @@ compareMatches listOfMatches grid tooNearPen =
         index = getIndex (elemIndex bestMatch listOfMatches)
     in index
 
+-- Return all unmatched tasks that are free to be assigned
+getFreeTasks :: [Char] -> [Char] -> [Char]
+getFreeTasks [] _ = []
+getFreeTasks _ [] = []
+getFreeTasks (x:xs) matches
+    | x `notElem` matches       = [x] ++ getFreeTasks xs matches
+    | otherwise                 = getFreeTasks xs matches
 
+-- Return index of an element in a list
+getIndex :: Maybe Int -> Int
+getIndex mx = case mx of
+    Just x -> x
+    Nothing -> 0

@@ -24,14 +24,6 @@ getTasks (x:xs) =
     let task = fst x
     in [task] ++ getTasks xs
 
--- -- Check if forced pair is also forbidden
--- forcedForbid :: [(Char,Char)] -> [(Char,Char)] -> Bool
--- forcedForbid [] _ = True
--- forcedForbid _ [] = True
--- forcedForbid (x:xs) ys
---     | x `elem` ys       = False
---     | otherwise         = forcedForbid xs ys
-
 -- Make forced pairs
 makeForced :: [(Char,Char)] -> [(Char,Char)] -> [(Char,Char)] -> [Char] -> [Char]
 makeForced [] _ _ matches = matches
