@@ -1,11 +1,11 @@
 module HardConstraints where
 
 -- Check if same machine/task forced more than once
-forcedDoubles :: [(Char,Char)] -> Bool
-forcedDoubles [] = True
+forcedDoubles :: [(Char,Char)] -> String
+forcedDoubles [] = ""
 forcedDoubles (x:xs)
-    | mach `elem` mach'     = False
-    | task `elem` task'     = False
+    | mach `elem` mach'     = "partial assignment error"
+    | task `elem` task'     = "partial assignment error"
     | otherwise             = forcedDoubles xs
     where mach = fst x
           task = snd x
@@ -28,7 +28,7 @@ getTasks (x:xs) =
 makeForced :: [(Char,Char)] -> [(Char,Char)] -> [(Char,Char)] -> [Char] -> [Char]
 makeForced [] _ _ matches = matches
 makeForced (x:xs) forbidden tooNear matches
-    | checkForbid x forbidden       = "No possible solution"
+    | checkForbid x forbidden       = "No valid solution possible!"
     | otherwise                     = makeForced xs newForbid tooNear newMatches
     where newMatches = makePair x matches
           newForbid = forbidden ++ (checkTooNear tooNear (fst x) (snd x))

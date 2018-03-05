@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f1e410e0fd195c738c9be10031dd48763f04cf5f981924cc04c2acfb3e02c464
+-- hash: 7132cf600f6285c2f636df0aee250a1bd0a7d8d2c0e6e7c4e965be8f08a80ea0
 
 name:           jkfso-haskell
 version:        0.1.0.0
@@ -33,7 +33,6 @@ library
   exposed-modules:
       HardConstraints
       Input
-      Lib
       Parser
       SoftConstraints
   other-modules:

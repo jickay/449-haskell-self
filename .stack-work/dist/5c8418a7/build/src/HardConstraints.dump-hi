@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-05 18:12:54.6769332 UTC
+2018-03-05 20:35:28.6919128 UTC
 
 interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:HardConstraints 8022
-  interface hash: b89606a733410bd3d2fd91912dc92e5b
-  ABI hash: e86f0562cd4f59435032f24663722785
+  interface hash: 1af0c4ee30f79f157c9cf6814fca7c30
+  ABI hash: b8cce133a0c50166437a32310b787d70
   export-list hash: 44a146debe8e3d7980f77b6fbf107fe6
   orphan hash: 37381a75cf0e7e7b96c45fcb5089ad9f
   flag hash: d22a7c21c2893d38d08642ed0a9c099e
@@ -152,10 +152,10 @@ d1bea667dff7a1514a76616c81b3b706
     -> GHC.Types.Char
     -> [(GHC.Types.Char, GHC.Types.Char)]
   {- Arity: 3, Strictness: <S,1*U><L,1*U(U)><L,U(U)> -}
-5cffa754743e25d7b5684a74481025f5
+a4a826b45557dc47747979bc1a9303ff
   forcedDoubles ::
-    [(GHC.Types.Char, GHC.Types.Char)] -> GHC.Types.Bool
-  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+    [(GHC.Types.Char, GHC.Types.Char)] -> GHC.Base.String
+  {- Arity: 1, Strictness: <S,1*U> -}
 da5a19fb7e85455ab277120a651f57bc
   getMachL :: GHC.Types.Char -> GHC.Types.Char
   {- Arity: 1, Strictness: <S(S),1*U(1*U)>, Inline: [0],
