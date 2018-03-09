@@ -1,1 +1,1 @@
-Solution H A B C D E F G; Quality: 8
+Solution A B C D E H F G; Quality: 8

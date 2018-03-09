@@ -15,9 +15,9 @@ output args contents =
 getLines :: FilePath -> IO String
 getLines fileName = readFile fileName
 
-outputError :: [FilePath] -> String -> IO()
-outputError args errorMsg
-    | errorMsg == ""        = writeFile (args !! 1) errorMsg
+outputError :: FilePath -> String -> IO()
+outputError fileName errorMsg
+    | errorMsg == ""        = writeFile fileName errorMsg
     | otherwise             = do
-        writeFile (args !! 1) errorMsg
+        writeFile fileName errorMsg
         exitFailure

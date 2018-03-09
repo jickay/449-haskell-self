@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-05 20:24:08.1964147 UTC
+2018-03-07 20:25:36.7299149 UTC
 
 interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:Input 8022
-  interface hash: 413e4cd8b507cb1455609b9443598703
-  ABI hash: 287849a0c9ffa45cba23316e55d92198
+  interface hash: 72f37de2ade9c436a9fc8464a16782f0
+  ABI hash: 6fc3a9f46a44920ea6eadc837c4147b3
   export-list hash: 699d84316b2f6850c923169be31838e2
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: d22a7c21c2893d38d08642ed0a9c099e
@@ -112,24 +112,24 @@ bcfe6efab304c0b355710695a068162b
                    (<GHC.IO.Handle.Types.Handle>_R
                     ->_R Sym (GHC.Types.N:IO[0] <()>_R))
                    eta) -}
-5eeb2632e389785398333a05c569d1ce
+c9df04dea6094cf6a8c0f1aa65cacb3c
   outputError ::
-    [GHC.IO.FilePath] -> GHC.Base.String -> GHC.Types.IO ()
-  {- Arity: 3, Strictness: <L,1*U><S,U><S,U>,
+    GHC.IO.FilePath -> GHC.Base.String -> GHC.Types.IO ()
+  {- Arity: 3, Strictness: <L,U><S,U><S,U>,
      Unfolding: InlineRule (0, True, True)
                 Input.outputError1
                   `cast`
-                (<[GHC.IO.FilePath]>_R
+                (<GHC.IO.FilePath>_R
                  ->_R <GHC.Base.String>_R
                  ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
-9cc21556cb5dae8e2b27860339ccf6fb
+625b38f01509a3da00ff7aa2baa6254a
   outputError1 ::
-    [GHC.IO.FilePath]
+    GHC.IO.FilePath
     -> GHC.Base.String
     -> GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
-  {- Arity: 3, Strictness: <L,1*U><S,U><S,U>,
-     Unfolding: (\ (args :: [GHC.IO.FilePath])
+  {- Arity: 3, Strictness: <L,U><S,U><S,U>,
+     Unfolding: (\ (fileName :: GHC.IO.FilePath)
                    (errorMsg :: GHC.Base.String)
                    (eta :: GHC.Prim.State# GHC.Prim.RealWorld) ->
                  case GHC.Base.eqString
@@ -138,7 +138,7 @@ bcfe6efab304c0b355710695a068162b
                    GHC.Types.False
                    -> case System.IO.appendFile2
                              @ ()
-                             (GHC.List.$w!! @ GHC.IO.FilePath args 1#)
+                             fileName
                              GHC.IO.IOMode.WriteMode
                              (\ (hdl :: GHC.IO.Handle.Types.Handle)[OneShot] ->
                               GHC.IO.Handle.Text.hPutStr1 hdl errorMsg)
@@ -147,17 +147,7 @@ bcfe6efab304c0b355710695a068162b
                               ->_R Sym (GHC.Types.N:IO[0] <()>_R))
                              eta of ds1 { (#,#) ipv ipv1 ->
                       System.Exit.exitFailure1 @ () ipv }
-                   GHC.Types.True
-                   -> System.IO.appendFile2
-                        @ ()
-                        (GHC.List.$w!! @ GHC.IO.FilePath args 1#)
-                        GHC.IO.IOMode.WriteMode
-                        (\ (hdl :: GHC.IO.Handle.Types.Handle)[OneShot] ->
-                         GHC.IO.Handle.Text.hPutStr1 hdl errorMsg)
-                          `cast`
-                        (<GHC.IO.Handle.Types.Handle>_R
-                         ->_R Sym (GHC.Types.N:IO[0] <()>_R))
-                        eta }) -}
+                   GHC.Types.True -> System.IO.writeFile1 fileName errorMsg eta }) -}
 vectorised variables:
 vectorised tycons:
 vectorised reused tycons:

@@ -1,5 +1,6 @@
 module SoftConstraints where
 
+    import HardConstraints
     import Data.List
     
     machines :: [Char]
@@ -31,8 +32,8 @@ module SoftConstraints where
               taskL = triplefst x
               taskR = triplesnd x
               pen = tripletrd x
-              machL = getMachL mach
-              machR = getMachR mach
+              machL = getMachLInt mach
+              machR = getMachRInt mach
     
     checkNeighbor :: [Char] -> Int -> Char -> Int -> Int
     checkNeighbor [] _ _ _ = 0
@@ -51,73 +52,78 @@ module SoftConstraints where
     tripletrd (_,_,c) = c
     
     -- Get neighbour machine for too-near checks
-    getMachL :: Int -> Int
-    getMachL mach
+    getMachLInt :: Int -> Int
+    getMachLInt mach
         | mach <= 0         = 7
         | otherwise         = mach - 1
     
-    getMachR :: Int -> Int
-    getMachR mach
+    getMachRInt :: Int -> Int
+    getMachRInt mach
         | mach >= 7         = 0
         | otherwise         = mach + 1
     
-    
     -- Iterate through different possible matches and return best option
-    iterateMatches :: [Char] -> [[Int]] -> [(Char,Char,Int)] ->[Char]
-    iterateMatches [] _ _ = []
-    iterateMatches matches grid tooNearPen
-        | freeTasks == []       = matches
-        | otherwise             = iterateMatches bestIteration grid tooNearPen
+    iterateMatches :: [Char] -> [[Int]] -> [(Char,Char,Int)] -> [(Char,Char)] ->[Char]
+    iterateMatches [] _ _ _ = []
+    iterateMatches matches grid tooNearPen forbidden
+        | freeTasks == []           = matches
+        -- | expandedMatches == []     = "No valid solution possible!"
+        | otherwise                 = iterateMatches bestIteration grid tooNearPen forbidden
         where freeTasks = getFreeTasks tasks matches
-              expandedMatches = expandMatches 0 matches freeTasks
-              rounds = getRounds expandedMatches grid
+              expandedMatches = expandMatches 0 matches freeTasks forbidden
+              rounds = getRounds expandedMatches grid forbidden
               index = compareMatches rounds grid tooNearPen
               bestIteration = rounds !! index
     
     -- Fill first unmatches row with all possible free tasks
     -- Creates a set of potential matches to compare
-    expandMatches :: Int -> [Char] -> [Char] -> [[Char]]
-    expandMatches _ [] _ = []
-    expandMatches _ _ [] = []
-    expandMatches index matches freeTasks
-        | matches !! index == 'x'       = [matches'] ++ expandMatches 0 matches (tail freeTasks)
-        | otherwise                     = expandMatches (index+1) matches freeTasks
-        where (as,bs) = splitAt index matches
+    expandMatches :: Int -> [Char] -> [Char] -> [(Char,Char)] -> [[Char]]
+    expandMatches _ [] _ _ = []
+    expandMatches _ _ [] _ = []
+    expandMatches index matches freeTasks forbidden
+        | notValid                  = expandMatches 0 matches (tail freeTasks) forbidden
+        | task == 'x'               = [matches'] ++ expandMatches 0 matches (tail freeTasks) forbidden
+        | otherwise                 = expandMatches (index+1) matches freeTasks forbidden
+        where task = matches !! index
+              notValid = invalidMatch index (head freeTasks) forbidden
+              (as,bs) = splitAt index matches
               matches' = as ++ [(head freeTasks)] ++ (tail bs)
     
     -- Methods to fill out expanded matches
-    getRounds :: [[Char]] -> [[Int]] -> [[Char]]
-    getRounds [] _ = []
-    getRounds expandedMatches grid
-        | x /= []           = [fillRound x grid freeTasks] ++ getRounds xs grid
-        | otherwise         = getRounds xs grid
+    getRounds :: [[Char]] -> [[Int]] -> [(Char,Char)] -> [[Char]]
+    getRounds [] _ _ = []
+    getRounds expandedMatches grid forbidden
+        | x /= []           = [fillRound x grid freeTasks forbidden] ++ getRounds xs grid forbidden
+        | otherwise         = getRounds xs grid forbidden
         where (x:xs) = expandedMatches
               freeTasks = getFreeTasks tasks x
     
-    fillRound :: [Char] -> [[Int]] -> [Char] -> [Char]
-    fillRound [] _ _ = []
-    fillRound matches grid freeTasks
-        | x == 'x'          = [fill] ++ fillRound xs grid freeTasks'
-        | otherwise         = [x] ++ fillRound xs grid freeTasks
+    fillRound :: [Char] -> [[Int]] -> [Char] -> [(Char,Char)] -> [Char]
+    fillRound [] _ _ _ = []
+    fillRound matches grid freeTasks forbidden
+        | x == 'x'          = [fillTask] ++ fillRound xs grid freeTasks' forbidden
+        | otherwise         = [x] ++ fillRound xs grid freeTasks forbidden
         where (x:xs) = matches
-              mach = getIndex (elemIndex x xs)
-              row = grid !! mach
-              fill = fillX 0 row freeTasks
-              freeTasks' = delete fill freeTasks
+              machInt = getIndex (elemIndex x matches)
+              row = grid !! machInt
+              fillTask = fillX machInt 0 row freeTasks forbidden
+              freeTasks' = delete fillTask freeTasks
     
-    fillX :: Int -> [Int] -> [Char] -> Char
-    fillX x [] _ = (tasks !! x)
-    fillX taskIndex row freeTasks
-        | isMin && isFree          = task
-        | otherwise                = fillX (taskIndex+1) row freeTasks
+    fillX :: Int -> Int -> [Int] -> [Char] -> [(Char,Char)] -> Char
+    fillX mach taskIndex row freeTasks forbidden
+        | taskIndex > 7             = 'x'
+        | notValid                  = fillX mach (taskIndex+1) row freeTasks forbidden
+        | isMin && isFree           = task
+        | otherwise                 = fillX mach (taskIndex+1) row freeTasks forbidden
         where task = tasks !! taskIndex
+              notValid = invalidMatch mach task forbidden
               minVal = minimum row
               isMin = (row !! taskIndex) == minVal
               isFree = task `elem` freeTasks
     
     -- Compare a list of matches to return the one with lowest penalties
     compareMatches :: [[Char]]-> [[Int]] -> [(Char,Char,Int)] -> Int
-    compareMatches [] _ _ = 0
+    compareMatches _ [] [] = 0
     compareMatches listOfMatches grid tooNearPen =
         let bestMatch = foldl1 (\acc x -> if (getQual x grid tooNearPen) > (getQual acc grid tooNearPen) then acc else x) listOfMatches
             index = getIndex (elemIndex bestMatch listOfMatches)
@@ -136,3 +142,12 @@ module SoftConstraints where
     getIndex mx = case mx of
         Just x -> x
         Nothing -> 0
+
+    -- Check if pair to match is forbidden; returns True if forbidden
+    invalidMatch :: Int -> Char -> [(Char,Char)] -> Bool
+    invalidMatch _ _ [] = True
+    invalidMatch machInt task forbidden
+        | match `elem` forbidden    = True
+        | otherwise                 = False
+        where mach = head (show (machInt+1))
+              match = (mach,task)

@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-05 20:24:08.5964086 UTC
+2018-03-09 19:41:50.0327993 UTC
 
 interface jkfso-haskell-0.1.0.0-9wfP2njLanP40orVtGiOyG:Parser 8022
-  interface hash: d5f28522cd4257b0e6ffd9dc66d00507
+  interface hash: 909f4d7833013ac7fc806c75cfd49066
   ABI hash: 2ef225b640e68222e527b3a0d65e802a
   export-list hash: 211061bd65881cf6356afa248a4611c3
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
@@ -27,7 +27,7 @@ exports:
   Parser.validRow
   Parser.validTask
   Parser.validTaskTask
-module dependencies: SoftConstraints
+module dependencies: HardConstraints SoftConstraints
 package dependencies: base-4.10.1.0* ghc-prim-0.5.1.1
                       integer-gmp-1.0.1.0
 orphans: base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
@@ -44,8 +44,8 @@ import  -/  base-4.10.1.0:GHC.List 1bb0adf79553530dc898796596e53188
 import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:Text.Read c150617dda21a009ed26981626bd21d7
 import  -/  ghc-prim-0.5.1.1:GHC.Classes 64ad5910d03ab188ab9b4adef7487b1e
-import  -/  SoftConstraints ae268e72f060d3863154c657c8f6512d
-  exports: 6a84d87e36aa69e568505306aee5c630
+import  -/  SoftConstraints 1693c140483549887235dd386a69a237
+  exports: 393c8c7d1ff13c8547d3be34b4aafec0
   machines c8f2249cf341b5e3e3a9f4b08d7617e6
   tasks 261b68d8e1f6b32bb78425c420aa8135
   triplefst 8f69bfc6298b0ed30f683dff634807bd

@@ -1,9 +1,9 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-05 20:35:31.4572574 UTC
+2018-03-09 19:44:40.933018 UTC
 
 interface main:Main 8022
-  interface hash: 36b09a9a45384a13ca77c1b77d7db2d7
+  interface hash: 6141efaf163854f089b4a02ef97e501f
   ABI hash: c67ecbc62cbae6b6266b5af0cdfd5a0a
   export-list hash: 34e7efa8403f70a6098268b353e3a431
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
@@ -29,6 +29,7 @@ family instance modules: base-4.10.1.0:Control.Applicative
 import  -/  base-4.10.1.0:Data.List e5312e282ad78d8152090e079f862b53
 import  -/  base-4.10.1.0:Data.OldList fdea655c7bec488a3994df222c677ab7
 import  -/  base-4.10.1.0:GHC.Base 8f949d675e49677c272f02ab7a85fe18
+import  -/  base-4.10.1.0:GHC.List 1bb0adf79553530dc898796596e53188
 import  -/  base-4.10.1.0:GHC.Show 927ef590f679632bf94869e8018e5b48
 import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:System.Environment 29b8ecc18446119a33172a40409ab016
@@ -36,9 +37,9 @@ import  -/  base-4.10.1.0:System.IO 1fb8f1d116df69c8750950ac088a90e6
 import  -/  ghc-prim-0.5.1.1:GHC.Classes 64ad5910d03ab188ab9b4adef7487b1e
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
 import  -/  jkfso-haskell-0.1.0.0:HardConstraints b8cce133a0c50166437a32310b787d70
-import  -/  jkfso-haskell-0.1.0.0:Input 287849a0c9ffa45cba23316e55d92198
+import  -/  jkfso-haskell-0.1.0.0:Input 6fc3a9f46a44920ea6eadc837c4147b3
 import  -/  jkfso-haskell-0.1.0.0:Parser 2ef225b640e68222e527b3a0d65e802a
-import  -/  jkfso-haskell-0.1.0.0:SoftConstraints ae268e72f060d3863154c657c8f6512d
+import  -/  jkfso-haskell-0.1.0.0:SoftConstraints 1693c140483549887235dd386a69a237
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
   {- HasNoCafRefs, Strictness: m,

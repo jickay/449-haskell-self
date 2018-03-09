@@ -15,6 +15,7 @@ module Main where
         -- Get input
         contents <- input args
         let linesOfFile = lines contents
+            outFileName = args !! 1
         print linesOfFile
     
         -- Parser
@@ -29,23 +30,23 @@ module Main where
         print grid
         print tooNearPen
 
-        outputError args (validMachTask forcedPairs)
-        outputError args (validMachTask forbidPairs)
-        outputError args (validTaskTask tooNearPairs)
-        outputError args (validGrid grid)
-        outputError args (validTask tooNearPen)
-        outputError args (forcedDoubles forcedPairs)
+        outputError outFileName (validMachTask forcedPairs)
+        outputError outFileName (validMachTask forbidPairs)
+        outputError outFileName (validTaskTask tooNearPairs)
+        outputError outFileName (validGrid grid)
+        outputError outFileName (validTask tooNearPen)
+        outputError outFileName (forcedDoubles forcedPairs)
 
         -- Hard Constraints
         let matches = "xxxxxxxx"
             forcedMatches = makeForced forcedPairs forbidPairs tooNearPairs matches
-        outputError args (forcedMatchValid forcedMatches)
+        outputError outFileName (forcedMatchValid forcedMatches)
         print ("Forced matches: " ++ forcedMatches)
     
         -- Soft Constraints
-        let finalMatches = iterateMatches forcedMatches grid tooNearPen
-            quality = getQual finalMatches grid tooNearPen
-        outputError args (solutionValid finalMatches)
+        let finalMatches = iterateMatches forcedMatches grid tooNearPen forbidPairs
+        -- outputError outFileName finalMatches
+        let quality = getQual finalMatches grid tooNearPen
     
         -- Solution filler
         let solution = makeSolution finalMatches quality
@@ -53,12 +54,6 @@ module Main where
     
         -- Print output file
         output args solution
-    
-    -- Go make forced pairs only if they are valid, ie they do not conflict with each other
-    -- forcedValid :: [(Char,Char)] -> [(Char,Char)] -> [(Char,Char)] -> [Char] -> [Char]
-    -- forcedValid forcedPairs forbidPairs tooNearPairs matches
-    --     | forcedDoubles forcedPairs     = makeForced forcedPairs forbidPairs tooNearPairs matches
-    --     | otherwise                     = "partial assignment error"
     
     -- Make solution string for output
     makeSolution :: String -> Int -> String
